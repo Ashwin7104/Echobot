@@ -40,10 +40,12 @@ class EchoBot {
             var tenant = 'sep007.onmicrosoft.com/';
             console.log('ashwin');
             var authoriotyUrl = authorityHostUrl + '/' + tenant;
-            var applicationId = clientID;
-            var clientSecret = appSecret;
+           // var applicationId = clientID;
+           // var clientSecret = appSecret;
+            var applicationId = "d2d16b32-5c6e-47c8-bafe-11d0c32dc588";
+            var clientSecret = "unIx9CLxX+HOJNbPNHIKO+cuRqBlPD2pDvH4jWjWMEA=";
             const resource = "https://graph.microsoft.com";
-            var messageText = session.message.text;
+           // var messageText = turnContext.activity.text;
             //messageText = messageText.substring(mentionString.length);
             var context = new AuthenticationContext(authoriotyUrl);
             context.acquireTokenWithClientCredentials(
@@ -67,13 +69,13 @@ class EchoBot {
                             .post({
                                 "fields": {
                                     "ContentType": "Item",
-                                    "Title": messageText
+                                    "Title": "check it out"
                                 }
                             }).then((res) => {
-                                session.send("your message has been posted to SharePoint");
+                                await turnContext.sendActivity("your message has been posted to SharePoint");
                             }).catch((err) => {
                                 console.log(err);
-                                session.send("Oops ! error ocured");
+                                await turnContext.sendActivity("Oops ! error ocured");
                             });
                     }
                 });
