@@ -47,8 +47,8 @@ class EchoBot {
             var applicationId = "d2d16b32-5c6e-47c8-bafe-11d0c32dc588";
             var clientSecret = "unIx9CLxX+HOJNbPNHIKO+cuRqBlPD2pDvH4jWjWMEA=";
             const resource = "https://graph.microsoft.com";
-            var messageText = turnContext.activity.text;
-            turnContext.sendActivity(messageText);
+            //var messageText = turnContext.activity.text;
+            //turnContext.sendActivity(messageText);
             //messageText = messageText.substring(mentionString.length);
             var context = new AuthenticationContext(authoriotyUrl);
             context.acquireTokenWithClientCredentials(
@@ -86,7 +86,6 @@ class EchoBot {
                 });
 
 
-                
             // read from state.
             let count = await this.countProperty.get(turnContext);
             count = count === undefined ? 1 : ++count;
