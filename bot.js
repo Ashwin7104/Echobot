@@ -37,17 +37,18 @@ class EchoBot {
 
             // Update SharePoint list
 
-           // var AuthenticationContext = adal.AuthenticationContext;
+            // var AuthenticationContext = adal.AuthenticationContext;
             var authorityHostUrl = 'https://login.windows.net';
             var tenant = 'sep007.onmicrosoft.com/';
             console.log('ashwin');
             var authoriotyUrl = authorityHostUrl + '/' + tenant;
-           // var applicationId = clientID;
-           // var clientSecret = appSecret;
+            // var applicationId = clientID;
+            // var clientSecret = appSecret;
             var applicationId = "d2d16b32-5c6e-47c8-bafe-11d0c32dc588";
             var clientSecret = "unIx9CLxX+HOJNbPNHIKO+cuRqBlPD2pDvH4jWjWMEA=";
             const resource = "https://graph.microsoft.com";
-           // var messageText = turnContext.activity.text;
+            var messageText = turnContext.activity.text;
+            turnContext.sendActivity(messageText);
             //messageText = messageText.substring(mentionString.length);
             var context = new AuthenticationContext(authoriotyUrl);
             context.acquireTokenWithClientCredentials(
@@ -58,7 +59,7 @@ class EchoBot {
                     if (err) {
                         console.log('well that did not work: ' + err.stack);
                     } else {
-                        let client =  MicrosoftGraph.Client.init({
+                        let client = MicrosoftGraph.Client.init({
                             authProvider: (done) => {
                                 console.log(tokenResponse.accessToken);
                                 done(null, tokenResponse.accessToken);
@@ -71,13 +72,15 @@ class EchoBot {
                             .post({
                                 "fields": {
                                     "ContentType": "Item",
-                                    "Title": "check it out"
+                                    "Title": turnContext.activity.text
                                 }
                             }).then((res) => {
-                                 turnContext.sendActivity("your message has been posted to SharePoint");
+                                console.log('success');
+                                turnContext.sendActivity("your message has been posted to SharePoint");
+
                             }).catch((err) => {
                                 console.log(err);
-                             turnContext.sendActivity("Oops ! error ocured");
+                                turnContext.sendActivity("Oops ! error ocured");
                             });
                     }
                 });
