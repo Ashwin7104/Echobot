@@ -4,6 +4,7 @@
 // bot.js is your bot's main entry point to handle incoming activities.
 
 const { ActivityTypes } = require('botbuilder');
+const { adal } = require('adal-node');
 
 // Turn counter property
 const TURN_COUNTER_PROPERTY = 'turnCounterProperty';
@@ -26,20 +27,67 @@ class EchoBot {
      * @param {TurnContext} on turn context object.
      */
     async onTurn(turnContext) {
-           
+
         // Handle message activity type. User's responses via text or speech or card interactions flow back to the bot as Message activity.
         // Message activities may contain text, speech, interactive cards, and binary or unknown attachments.
         // see https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
         if (turnContext.activity.type === ActivityTypes.Message) {
+
+            // Update SharePoint list
+
+            var AuthenticationContext = adal.AuthenticationContext;
+            var authorityHostUrl = 'https://login.windows.net';
+            var tenant = 'sep007.onmicrosoft.com/';
+            console.log('ashwin');
+            var authoriotyUrl = authorityHostUrl + '/' + tenant;
+            var applicationId = clientID;
+            var clientSecret = appSecret;
+            const resource = "https://graph.microsoft.com";
+            var messageText = session.message.text;
+            //messageText = messageText.substring(mentionString.length);
+            var context = new AuthenticationContext(authoriotyUrl);
+            context.acquireTokenWithClientCredentials(
+                resource,
+                applicationId,
+                clientSecret,
+                function (err, tokenResponse) {
+                    if (err) {
+                        console.log('well that did not work: ' + err.stack);
+                    } else {
+                        let client = MicrosoftGraph.Client.init({
+                            authProvider: (done) => {
+                                console.log(tokenResponse.accessToken);
+                                done(null, tokenResponse.accessToken);
+                            }
+                        });
+                        // client.api('https://graph.microsoft.com/beta/sites/sep007.sharepoint.com,052e0c8e-9e92-4165-8d9a-c4f405aaf2d8/lists/test/items/')
+                        client.api('https://graph.microsoft.com/beta/sites/sep007.sharepoint.com:/sites/dev:/lists/test/items/')
+                            .version("beta")
+                            .header("Content-type", "application/json")
+                            .post({
+                                "fields": {
+                                    "ContentType": "Item",
+                                    "Title": messageText
+                                }
+                            }).then((res) => {
+                                session.send("your message has been posted to SharePoint");
+                            }).catch((err) => {
+                                console.log(err);
+                                session.send("Oops ! error ocured");
+                            });
+                    }
+                });
+
+
             // read from state.
             let count = await this.countProperty.get(turnContext);
             count = count === undefined ? 1 : ++count;
-            await turnContext.sendActivity(`${ count }: You said 1 "${ turnContext.activity.text }"`);
+            await turnContext.sendActivity(`${count}: You said 1 "${turnContext.activity.text}"`);
             // increment and set turn counter.
             await this.countProperty.set(turnContext, count);
-        } else { 
+        } else {
             // Generic handler for all other activity types.
-            await turnContext.sendActivity(`[${ turnContext.activity.type } event detected]`);
+            await turnContext.sendActivity(`[${turnContext.activity.type} event detected]`);
         }
         // Save state changes
         await this.conversationState.saveChanges(turnContext);
