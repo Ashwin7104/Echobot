@@ -5,6 +5,8 @@
 
 const { ActivityTypes } = require('botbuilder');
 const { adal } = require('adal-node');
+const { AuthenticationContext } = require('adal-node');
+const MicrosoftGraph = require('@microsoft/microsoft-graph-client');
 
 // Turn counter property
 const TURN_COUNTER_PROPERTY = 'turnCounterProperty';
@@ -35,7 +37,7 @@ class EchoBot {
 
             // Update SharePoint list
 
-            var AuthenticationContext = adal.AuthenticationContext;
+           // var AuthenticationContext = adal.AuthenticationContext;
             var authorityHostUrl = 'https://login.windows.net';
             var tenant = 'sep007.onmicrosoft.com/';
             console.log('ashwin');
@@ -56,7 +58,7 @@ class EchoBot {
                     if (err) {
                         console.log('well that did not work: ' + err.stack);
                     } else {
-                        let client = MicrosoftGraph.Client.init({
+                        let client =  MicrosoftGraph.Client.init({
                             authProvider: (done) => {
                                 console.log(tokenResponse.accessToken);
                                 done(null, tokenResponse.accessToken);
@@ -72,10 +74,10 @@ class EchoBot {
                                     "Title": "check it out"
                                 }
                             }).then((res) => {
-                                await turnContext.sendActivity("your message has been posted to SharePoint");
+                                 turnContext.sendActivity("your message has been posted to SharePoint");
                             }).catch((err) => {
                                 console.log(err);
-                                await turnContext.sendActivity("Oops ! error ocured");
+                             turnContext.sendActivity("Oops ! error ocured");
                             });
                     }
                 });
