@@ -86,6 +86,7 @@ class EchoBot {
                 });
 
 
+                
             // read from state.
             let count = await this.countProperty.get(turnContext);
             count = count === undefined ? 1 : ++count;
