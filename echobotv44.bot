@@ -1,0 +1,53 @@
+{
+  "name": "echobotv44",
+  "padlock": "S2iJcCFJA+sf1cQpBwVw5w==!iBycjX4eJnAjZI88Gx4rCKRW47+g+KuLPGk1mzxM1z5oNgdd9CYe7jQN/tlJFX2J",
+  "version": "2.0",
+  "services": [
+    {
+      "tenantId": "3d1552b8-8bfb-43d6-b3a6-cb9d0182c270",
+      "subscriptionId": "227aaa19-de07-4b26-82a1-3490591a1830",
+      "resourceGroup": "Botresource",
+      "serviceName": "echobotv44",
+      "type": "abs",
+      "name": "echobotv44",
+      "id": "1"
+    },
+    {
+      "connectionString": "pfrwzaWrRzs+D1qLO3fbxw==!fWCu/qql2B8yllYJw37T8RzXuYyfkOXHtwIex+y38qFLBsn+J+1R2CZrLO+50jAoogDjQm0RCQEENzN+ppDINcNo4Nq3yHxSA1klFV6oScnmtFMa7kmIkEMgWxj7XerF+x2ADZKGG5Nq4+WKrfcM917tdxcsHEcPOVw5zMBocmPZRtFZ924Atbn3NlFlRPF2A8oC+5Us/F883nYAlx70pg==",
+      "tenantId": "3d1552b8-8bfb-43d6-b3a6-cb9d0182c270",
+      "subscriptionId": "227aaa19-de07-4b26-82a1-3490591a1830",
+      "resourceGroup": "Botresource",
+      "serviceName": "echobotv449b90",
+      "type": "blob",
+      "name": "blob",
+      "id": "2"
+    },
+    {
+      "appId": "",
+      "appPassword": "",
+      "endpoint": "http://localhost:3978/api/messages",
+      "type": "endpoint",
+      "name": "development",
+      "id": "3"
+    },
+    {
+      "appId": "ffb16496-a34d-4d85-a059-2e45c1a62ddf",
+      "appPassword": "tyclbW4bPoIvI19pWEFvUA==!1h1YgydvPVoInLNrdrKONbSmPSg3GME9Si+GwU3LtVo=",
+      "endpoint": "https://echobotv44.azurewebsites.net/api/messages",
+      "type": "endpoint",
+      "name": "production",
+      "id": "4"
+    },
+    {
+      "instrumentationKey": "Ovr7AsKckSOloxSAUblYZg==!i4WkeN/6F7WeOlbrNX9eEG5mytqUHQNabgkVgoJSsFHNY3bL+k4r1sVs0Uwp/WDg",
+      "applicationId": "d0180551-a771-460d-8993-f976dc68bd45",
+      "apiKeys": {},
+      "tenantId": "3d1552b8-8bfb-43d6-b3a6-cb9d0182c270",
+      "subscriptionId": "227aaa19-de07-4b26-82a1-3490591a1830",
+      "resourceGroup": "Botresource",
+      "serviceName": "echobotv4443wrbx",
+      "type": "appInsights",
+      "id": "5"
+    }
+  ]
+}
